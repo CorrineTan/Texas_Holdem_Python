@@ -1,20 +1,21 @@
 import itertools
 from collections import defaultdict
+from itertools import combinations
 
 # Don't forget to convert 10 to T
 card_order_dict = {"2":2, "3":3, "4":4, "5":5, "6":6, "7":7, "8":8, "9":9, "t":10,"j":11, "q":12, "k":13, "a":14}
 hand_dict = {9:"straight-flush", 8:"four-of-a-kind", 7:"full-house", 6:"flush", 5:"straight", 4:"three-of-a-kind", 3:"two-pairs", 2:"one-pair", 1:"highest-card"}
+community_cards = ["S6", "Sj", "C6", "H2", "S5"]
+hands = [["Hj", "D2"], ["C5", "Ct"], ["Cj", "Ha"], ["D7", "Dq"], ["S2", "S6"]]
 
-def make_the_winner(community_cards, hands, selected_winner):
-    next_cards = []
+def make_the_winner(community_cards, hands):
     # Create a list of all possible 5-card hands for each player
     player_hands = [[*hand, *community_cards] for hand in hands]
     # Find the best 5-card hand for each player
     best_hands = [max(itertools.combinations(hand, 5), key=hand_rank) for hand in player_hands]
     # Find the player with the highest-ranked hand
     winner = max(zip(best_hands, hands), key=lambda x: hand_rank(x[0]))[1]
-    if winner == selected_winner:
-        return next_cards
+    return winner
 
 def hand_rank(hand):
     # Assign a numeric rank to each hand, with the highest rank being the best hand
@@ -26,23 +27,23 @@ def classify_hand(hand):
     # Classify the hand based on the combination of cards
     hand = sorted(hand, key=lambda x: x[0])
     if is_straight_flush(hand):
-        return 9
+        return 'Straight Flush'
     elif is_four_of_a_kind(hand):
-        return 8
+        return 'Four of a Kind'
     elif is_full_house(hand):
-        return 7
+        return 'Full House'
     elif is_flush(hand):
-        return 6
+        return 'Flush'
     elif is_straight(hand):
-        return 5
+        return 'Straight'
     elif is_three_of_a_kind(hand):
-        return 4
+        return 'Three of a Kind'
     elif is_two_pairs(hand):
-        return 3
+        return 'Two Pairs'
     elif is_pair(hand):
-        return 2
+        return 'Pair'
     else:
-        return 1
+        return 'High Card'
 
 
 def is_straight_flush(hand):
@@ -107,7 +108,7 @@ def is_two_pairs(hand):
     if sorted(value_counts.values()) == [1,2,2]:
         return True
     else:
-        return False
+        return False 
 
 def is_pair(hand):
     values = [i[1] for i in hand]
@@ -117,8 +118,7 @@ def is_pair(hand):
     if 2 in value_counts.values():
         return True
     else:
-        return False
+        return False 
 
 
-hand = ["St", "Sj", "S9", "S8", "S5"]
-print(is_straight_flush(hand))
+print(make_the_winner(community_cards, hands))
