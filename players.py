@@ -8,7 +8,7 @@ class Players:
 	"""
 
 	name: str
-	player_hands: list[str]
+	player_hands: list = None
 
 
 	def getName(self):
@@ -30,7 +30,7 @@ class Players:
 		Convert object to dict
 		"""
 		output = {
-			"Name": self.getName(),
+			"name": self.getName(),
 			"players_hands": self.getPlayerHands()
 		}
 		return output
