@@ -45,7 +45,7 @@ if __name__ == "__main__":
 	# Setup argparser to get input from users
 	parser = argparse.ArgumentParser()
 	parser.add_argument(
-		"-r",
+		"-c",
 		"--community",
 		help="input a list of 3 community cards",
 	)
