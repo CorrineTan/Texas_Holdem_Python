@@ -3,15 +3,17 @@ from collections import defaultdict
 from itertools import combinations
 from dataclasses import dataclass
 
-@dataclass
+
 
 class playTexas:
 
-    # Don't forget to convert 10 to T
-    card_order_dict = {"2":2, "3":3, "4":4, "5":5, "6":6, "7":7, "8":8, "9":9, "t":10,"j":11, "q":12, "k":13, "a":14}
-    hand_dict = {9:"straight-flush", 8:"four-of-a-kind", 7:"full-house", 6:"flush", 5:"straight", 4:"three-of-a-kind", 3:"two-pairs", 2:"one-pair", 1:"highest-card"}
-    community_cards = ["S6", "Sj", "C6", "H2", "S5"]
-    hands = [["Hj", "D2"], ["C5", "Ct"], ["Cj", "Ha"], ["D7", "Dq"], ["S2", "S6"]]
+    def __init__(self):
+        # Don't forget to convert 10 to T
+        self.card_order_dict = {"2":2, "3":3, "4":4, "5":5, "6":6, "7":7, "8":8, "9":9, "t":10,"j":11, "q":12, "k":13, "a":14}
+        self.hand_dict = {9:"straight-flush", 8:"four-of-a-kind", 7:"full-house", 6:"flush", 5:"straight", 4:"three-of-a-kind", 3:"two-pairs", 2:"one-pair", 1:"highest-card"}
+        self.community_cards = ["S6", "Sj", "C6", "H2", "S5"]
+        self.hands = [["Hj", "D2"], ["C5", "Ct"], ["Cj", "Ha"], ["D7", "Dq"], ["S2", "S6"]]
+        self.deck = [j + " " + i for j in VALUES for i in SUITES]
 
 
     def hand_rank(self, hand):
